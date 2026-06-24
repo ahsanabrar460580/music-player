@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome</title>
+<style>
+  :root{
+    --noir:#15110f;
+    --noir2:#1f1a16;
+    --paper:#f3e9d8;
+    --paper-dim:rgba(243,233,216,0.55);
+    --amber:#e8a33d;
+    --rust:#c1502e;
+    --line: rgba(243,233,216,0.14);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;}
+  body{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family: -apple-system,"Segoe UI",system-ui,sans-serif;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(193,80,46,0.20), transparent 45%),
+      radial-gradient(circle at 85% 90%, rgba(232,163,61,0.12), transparent 50%),
+      var(--noir);
+    color:var(--paper);
+    overflow:hidden;
+    position:relative;
+  }
+  body::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: repeating-linear-gradient(
+      0deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 3px
+    );
+    pointer-events:none;
+    mix-blend-mode:overlay;
+  }
+
+  /* ambient floating rings echoing the vinyl motif from the player */
+  .ring{
+    position:absolute;
+    border-radius:50%;
+    border:1px solid var(--line);
+    opacity:0.5;
+    animation: drift 14s ease-in-out infinite;
+  }
+  .ring1{ width:520px; height:520px; top:-180px; left:-160px; animation-delay:0s; }
+  .ring2{ width:360px; height:360px; bottom:-140px; right:-120px; animation-delay:-5s; }
+  .ring3{ width:240px; height:240px; bottom:30%; left:8%; opacity:0.25; animation-delay:-9s; }
+  @keyframes drift{
+    0%,100%{ transform: translateY(0px) rotate(0deg); }
+    50%{ transform: translateY(-16px) rotate(8deg); }
+  }
+
+  .stage{
+    position:relative;
+    z-index:1;
+    text-align:center;
+    max-width:560px;
+    padding:0 28px;
+    opacity:0;
+    transform: translateY(14px);
+    animation: rise 1s cubic-bezier(.22,1,.36,1) .15s forwards;
+  }
+  @keyframes rise{
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:11px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--amber);
+    margin-bottom:22px;
+  }
+  .eyebrow .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--rust);
+    box-shadow:0 0 8px var(--rust);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+
+  h1{
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    font-weight:600;
+    font-size:clamp(28px, 6vw, 44px);
+    line-height:1.25;
+    margin:0 0 16px;
+    letter-spacing:0.2px;
+  }
+  h1 .accent{
+    color:var(--amber);
+    font-style:italic;
+  }
+
+  p.sub{
+    margin:0 auto 40px;
+    max-width:380px;
+    font-size:14.5px;
+    color:var(--paper-dim);
+    line-height:1.6;
+  }
+
+  .enter-btn{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    padding:16px 30px;
+    border-radius:40px;
+    border:1px solid rgba(232,163,61,0.35);
+    background: linear-gradient(150deg, rgba(232,163,61,0.14), rgba(193,80,46,0.08));
+    color:var(--paper);
+    font-size:14.5px;
+    font-weight:600;
+    letter-spacing:0.04em;
+    cursor:pointer;
+    text-decoration:none;
+    transition: transform .25s cubic-bezier(.4,0,.2,1), box-shadow .25s ease, background .25s ease;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.35);
+  }
+  .enter-btn:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px rgba(193,80,46,0.3);
+    background: linear-gradient(150deg, rgba(232,163,61,0.22), rgba(193,80,46,0.14));
+  }
+  .enter-btn:active{ transform: translateY(-1px) scale(0.98); }
+
+  .play-disc{
+    width:30px; height:30px;
+    border-radius:50%;
+    flex-shrink:0;
+    background:
+      repeating-radial-gradient(circle at 50% 50%,
+        #0a0807 0px, #0a0807 1.5px,
+        #221c17 2.5px, #221c17 3px);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+    transition: transform .6s cubic-bezier(.4,0,.2,1);
+  }
+  .enter-btn:hover .play-disc{ transform: rotate(140deg); }
+  .play-disc svg{ width:11px; height:11px; }
+
+  .foot{
+    margin-top:46px;
+    font-size:10.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--paper-dim);
+    opacity:0.6;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .ring, .eyebrow .dot, .stage { animation:none !important; opacity:1; transform:none; }
+    .enter-btn:hover .play-disc{ transform:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ring ring1"></div>
+<div class="ring ring2"></div>
+<div class="ring ring3"></div>
+
+<div class="stage">
+  <div class="eyebrow"><span class="dot"></span><span>On Air</span></div>
+
+  <h1>Welcome to <span class="accent">Anything Music-player</span> —<br>must you like to hear?</h1>
+
+  <p class="sub">A quiet little room for the songs you keep coming back to. Step in, drop the needle, and let it play.</p>
+
+  <a class="enter-btn" href="player.html">
+    <span class="play-disc">
+      <svg viewBox="0 0 24 24" fill="#e8a33d"><path d="M8 5v14l11-7z"/></svg>
+    </span>
+    <span>Enter the player</span>
+  </a>
+
+  <div class="foot">Late Night &middot; Listening Room <br/><span>Made by Ahsan Abrar</span></div>
+</div>
+
+</body>
+</html>
